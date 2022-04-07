@@ -26,24 +26,25 @@ def readFile():
     lineCount=0
     #example file
     companyTxt=open("SampleCo.txt","r")
-    
+    companyList=[]
     companyName=companyTxt.readline()
     print(companyName)
     numGen=companyTxt.readline()
     print(numGen)
     for x in companyTxt:
-        print(x[2])
-        if x[0] in companyDict:
-            companyDict[x[2]].append(x[5])
-        else:
-            companyDict[x[2]]=[x[5]]
+        temp=json.loads(x)
+        newList=list(temp.items())
+        companyList.append(newList)
 
-        
+    
+       
+               
+       
             
 
 
     companyTxt.close()
-    print(companyDict)
+    print(companyList)
     
 readFile()
 
