@@ -21,20 +21,36 @@ companyName=""
 numGen=0
 companyDict={}
 
+def Simulate(companyDict,numGen,companyName):
+    minNum=0
+    maxNum=99
+    for i in range(numGen):
+        pass
+        #do stuff :( 
+    
+    
 
 def readFile():
-    lineCount=0
     #example file
-    companyTxt=open("SampleCo.txt","r")
+    fileName=input("Enter a file name: ")
+    companyTxt=open(fileName,"r")
     companyList=[]
     companyName=companyTxt.readline()
-    print(companyName)
     numGen=companyTxt.readline()
-    print(numGen)
+    #load jason into a list
     for x in companyTxt:
         temp=json.loads(x)
         newList=list(temp.items())
         companyList.append(newList)
+    #convert that list to a dict 
+    for row in range(len(companyList)):
+        for col in range(len(companyList[row])):
+            temp=companyList[row][col]
+            if temp[0] in companyDict:
+                companyDict[temp[0]].append([temp[1]])
+            else:
+                companyDict[temp[0]]=[temp[1]]
+    return (companyName,numGen)
 
     
        
@@ -44,8 +60,10 @@ def readFile():
 
 
     companyTxt.close()
-    print(companyList)
     
-readFile()
+companyName, numGen= readFile()
+print(f"number is {numGen}")
+print(f"company name is {companyName}")
+print(companyDict)
 
 
