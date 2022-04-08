@@ -1,6 +1,7 @@
 #Project 2 - Promotion Bias Simulation
 import os 
 import json
+from typing import Dict
 
 """
 SampleCo
@@ -21,11 +22,19 @@ companyName=""
 numGen=0
 companyDict={}
 
+def ProcessDict(companyDict:Dict):
+    for i,j in  companyDict.items():
+        for ugh in j:
+            print(ugh)
+    print()
+
+
 def Simulate(companyDict,numGen,companyName):
     minNum=0
     maxNum=99
     for i in range(numGen):
-        pass
+        ProcessDict(companyDict)
+
         #do stuff :( 
     
     
@@ -62,8 +71,8 @@ def readFile():
     companyTxt.close()
     
 companyName, numGen= readFile()
+Simulate(companyDict,int(numGen),companyName)
 print(f"number is {numGen}")
 print(f"company name is {companyName}")
-print(companyDict)
 
 
