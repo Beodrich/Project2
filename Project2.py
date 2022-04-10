@@ -7,6 +7,8 @@ import random
 import copy
 from typing import Dict
 
+from sqlalchemy import true
+
 """
 file name: SampleCo.txt
 SampleCo
@@ -22,6 +24,15 @@ SampleCo
 (6,105)
 A:[0,5,5,5,5,5]
 B:[-2,5,5,5,5,5]
+
+output 
+
+SampleCo
+A:7, B:3
+A:8, B:2
+A:5, B:5
+A:6, B:4
+A:4, B:6
 """
 companyName=""
 numGen=0
@@ -35,6 +46,12 @@ biasDict={}
 #if bias key match empolyee category, generate number
 #do stuff after
 
+def OrderList(biasDict): #A=> {6,}
+    pass
+
+
+
+
 def ApplyBias(biasDict,companyDict):#A->0, B->-2
     minNum=1
     maxNum=100
@@ -43,14 +60,16 @@ def ApplyBias(biasDict,companyDict):#A->0, B->-2
         for value in j:
             #figure out current key,value pair and figure out bias...
             if isinstance(value ,list):
-                biasMin=minNum-biasDict[i]
+                biasMin=minNum-abs(biasDict[i])
                 biasMax=maxNum+biasDict[i]
-                
-                value[0]+=random.randrange(biasMin,biasMax)
+               # print(f"the bias min and max is this {biasMin,biasMax} with a bias mod of {biasDict[i]}")
+                value[0]=random.randrange(biasMin,biasMax)
             else:
-                biasMin=minNum-biasDict[i]
+                biasMin=minNum-abs(biasDict[i])
                 biasMax=maxNum+biasDict[i]
-                value+=random.randrange(biasMin,biasMax)
+                #print(f"the bias min and max is this {biasMin,biasMax} with a bias mod of {biasDict[i]}")
+
+                value=random.randrange(biasMin,biasMax)
     return companyCopy
 
             
@@ -63,8 +82,9 @@ def Simulate(companyDict,numGen,companyName):
 
     for i in range(numGen):
         copy= ApplyBias(biasDict,companyDict)
-        print(f"company dict after {i} is {companyDict}")
-        print(f"bias for company dict after {i} is {copy}")
+        #print(f"company dict after {i} is {companyDict}")
+        #print(f"bias for company dict after {i} is {copy}")
+        print(OrderList(copy))
 
         
 
