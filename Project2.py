@@ -46,8 +46,10 @@ biasDict={}
 #if bias key match empolyee category, generate number
 #do stuff after
 
-def OrderList(biasDict): #A=> {6,}
-    pass
+def OrderList(bias): #A=> {6,}
+    for i,j in bias.items():
+        j.sort()
+    return bias
 
 
 
@@ -56,20 +58,22 @@ def ApplyBias(biasDict,companyDict):#A->0, B->-2
     minNum=1
     maxNum=100
     companyCopy=copy.deepcopy(companyDict)
+    tempList=[]
     for i,j in  companyCopy.items():#i is key, j is value list
         for value in j:
             #figure out current key,value pair and figure out bias...
-            if isinstance(value ,list):
+          
+            
                 biasMin=minNum-abs(biasDict[i])
                 biasMax=maxNum+biasDict[i]
-               # print(f"the bias min and max is this {biasMin,biasMax} with a bias mod of {biasDict[i]}")
-                value[0]=random.randrange(biasMin,biasMax)
-            else:
-                biasMin=minNum-abs(biasDict[i])
-                biasMax=maxNum+biasDict[i]
-                #print(f"the bias min and max is this {biasMin,biasMax} with a bias mod of {biasDict[i]}")
+                #print(f"the bias min and max is the else {biasMin,biasMax} with a bias mod of {biasDict[i]}")
 
-                value=random.randrange(biasMin,biasMax)
+                num=random.randrange(biasMin,biasMax)
+                #companyCopy[i].insert(index,num)
+                tempList.append(num)
+        companyCopy[i]=copy.deepcopy(tempList)
+        tempList.clear()
+        
     return companyCopy
 
             
@@ -82,9 +86,9 @@ def Simulate(companyDict,numGen,companyName):
 
     for i in range(numGen):
         copy= ApplyBias(biasDict,companyDict)
-        #print(f"company dict after {i} is {companyDict}")
-        print(f"bias for company dict after {i} is {copy}")
-        #print(OrderList(copy))
+        print(f"company dict after {i} is {companyDict}")
+        #print(f"bias for company dict after {i} is {copy}")
+        print(f" bias being sorted is {OrderList(copy)}")
 
         
 
@@ -112,9 +116,11 @@ def readFile():
         for col in range(len(companyList[row])):
             temp=companyList[row][col]
             if temp[0] in companyDict:
-                companyDict[temp[0]].append([temp[1]])
+                companyDict[temp[0]].append(temp[1])
             else:
-                companyDict[temp[0]]=[temp[1]]
+                companyDict[temp[0]]=[]
+                #companyDict[temp[0]]=[temp[1]]
+                companyDict[temp[0]].append(temp[1])
     companyTxt.close()
 
     return (companyName,numGen)
@@ -128,8 +134,9 @@ def readFile():
 
     
 companyName, numGen= readFile()
+print(companyDict)
 Simulate(companyDict,int(numGen),companyName)
-print(f"number is {numGen}")
-print(f"company name is {companyName}")
+#print(f"number is {numGen}")
+#print(f"company name is {companyName}")
 
 
