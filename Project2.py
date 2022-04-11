@@ -83,8 +83,8 @@ def Simulate(companyDict,numGen,companyName):
     for i in range(numGen):
         copy= ApplyBias(biasDict,companyDict)
         #print(f"company dict after {i} is {companyDict}")
-        #print(f"bias for company dict after {i} is {copy}")
-        print(OrderList(copy))
+        print(f"bias for company dict after {i} is {copy}")
+        #print(OrderList(copy))
 
         
 
