@@ -15,16 +15,21 @@ A:4, B:6
 
 """
 def FindTenPercent( companyList):
-     for i in range(len(companyList)):
-        total=sum(companyList[i])
-        return round(total*0.10)
+        total= sum(companyList)
+     
+        return round((total*0.10))
 
 
 def Promotion(companyList):
     for i in range(1,len(companyList)):
         companyList[i]+=FindTenPercent(companyList[i])
 
-
+def Simulate(numGen, biasDict, compayList):
+    for i in range(numGen):
+        biasList= ApplyBias(companyList,biasDict)
+        for j in companyList:
+            print(FindTenPercent(j))
+            return
 
 
 def ApplyBias(companyList,biasDict):
@@ -83,5 +88,6 @@ def readFile():
 
 readFile()
 companyList,bias,name,gen=readFile()
-print(ApplyBias(companyList,bias))
+#print(ApplyBias(companyList,bias))
+Simulate(int(gen),bias,companyList)
 #Promotion(companyList)
