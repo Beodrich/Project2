@@ -20,15 +20,36 @@ def FindTenPercent( companyList):
         return round((total*0.10))
 
 
-def Promotion(companyList):
-    for i in range(1,len(companyList)):
-        companyList[i]+=FindTenPercent(companyList[i])
+def Promotion(companyList,numToPromote,rowToInsert,colToInsert):
+    
+    if rowToInsert==0:#promotion can't happen in the first list
+        return companyList
+    if rowToInsert<len(companyList) and colToInsert<len(companyList[0]):
+        #insert a new number at the row and col
+        #subtract one from pervious row and col
+        copyOfCompany=copy.deepcopy(companyList)
+        copyOfCompany[rowToInsert][colToInsert]+=numToPromote
+        copyOfCompany[rowToInsert+1][colToInsert]-=numToPromote
+        return copyOfCompany
+def DeMotion(companyList, numToPromote, rowToInsert,colToInsert):
+    if rowToInsert==len(companyList)-1:#only need to -1 if where doing zero based indexing 
+        return companyList#demotion can't happen at the last spot in the list, need to fire them to make this correct
+    if rowToInsert<len(companyList) and colToInsert<len(companyList[0]):
+        copyOfCompany=copy.deepcopy(companyList)
+        copyOfCompany[rowToInsert][colToInsert]-=numToPromote
+        copyOfCompany[rowToInsert+1][colToInsert]+=numToPromote
+        return copyOfCompany
+    
+
+
+
+    
 
 def Simulate(numGen, biasDict, compayList):
     for i in range(numGen):
         biasList= ApplyBias(companyList,biasDict)
         for j in companyList:
-            print(FindTenPercent(j))
+            #print(FindTenPercent(j))
             return
 
 
@@ -89,5 +110,12 @@ def readFile():
 readFile()
 companyList,bias,name,gen=readFile()
 #print(ApplyBias(companyList,bias))
-Simulate(int(gen),bias,companyList)
+#Simulate(int(gen),bias,companyList)
+d=Promotion(companyList,1,1,0)
+a=DeMotion(companyList,1,1,0)
+
+print(f"dict before promotion happens {companyList} ")
+print(f"dict after promotion happens {d}")
+print(f"dict after demotion happens {a}")
+
 #Promotion(companyList)
