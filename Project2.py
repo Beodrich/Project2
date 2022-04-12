@@ -31,28 +31,28 @@ def ApplyBias(companyList,biasDict):
     defaultMin=1
     defaultMax=100
     currentKey='A'
-    size=len(currentKey[0])
+    size=len(companyList[0])-1
     index=0
     biasList=[]
     temp=[]
     for i in range(len(companyList)):
+        for j in range(len(companyList[i])):
         
-        biasMin=defaultMin-abs(biasDict[currentKey])
-        biasMax=defaultMax+biasDict[currentKey]
-        num=random.randrange(biasMin,biasMax)
-        temp.append(num)
+            biasMin=defaultMin-abs(biasDict[currentKey])
+            biasMax=defaultMax+biasDict[currentKey]
+            num=random.randrange(biasMin,biasMax)
+            temp.append(num)
 
         
-        if index==size:
-            index=0
-            currentKey='A'
-            biasList.append(copy.deepcopy(temp))
-            temp.clear()
+            if index==size:
+                index=0
+                currentKey='A'
+                biasList.append(copy.deepcopy(temp))
+                temp.clear()
 
-        else:
-            index+=1
-            currentKey=chr(ord(currentKey)+1)
-    biasList.append(copy.deepcopy(temp))
+            else:
+                index+=1
+                currentKey=chr(ord(currentKey)+1)
 
     return biasList
 
